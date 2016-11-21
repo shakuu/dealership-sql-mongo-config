@@ -18,6 +18,12 @@ using Dealership.Data.MongoDb.Repository;
 using Dealership.Data.MongoDb.Services;
 using Dealership.Data.MongoDb.Models;
 using Dealership.ConfigurationReaders;
+using Dealership.Data.SqlServer.Models;
+using Dealership.Data.SqlServer.Repository;
+using Dealership.Data.SqlServer.Services;
+using Dealership.Data.SqlServer;
+using Dealership.Data.SqlServer.Repository.Contracts;
+using Dealership.Data.SqlServer.Factories;
 
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -62,7 +68,6 @@ namespace Dealership.NinjectBindings
             });
 
             this.Bind<ConfigurationReader>().ToSelf().InSingletonScope();
-
             var configReader = this.Kernel.Get<ConfigurationReader>();
             if (configReader.IsMongo())
             {
@@ -78,7 +83,19 @@ namespace Dealership.NinjectBindings
             }
             else if (configReader.IsSqlServer())
             {
+                this.Rebind<IUser>().To<SqlServerUser>();
+                this.Rebind<IComment>().To<SqlServerComment>();
 
+                this.Bind<IVehicle>().To<SqlServerCar>().Named("Car");
+                this.Bind<IVehicle>().To<SqlServerTruck>().Named("Truck");
+                this.Bind<IVehicle>().To<SqlServerMotorcycle>().Named("Motorcycle");
+
+                this.Bind<IUnitOfWork>().To<DealershipUnitOfWork>();
+                this.Bind<IUnitOfWorkFactory>().ToFactory().InSingletonScope();
+
+                this.Bind<DealershipDbContext>().ToSelf().InSingletonScope();
+                this.Bind<IRepository<SqlServerUser>>().To<SqlServerRepository>().InSingletonScope();
+                this.Bind<IUserService>().To<SqlServerUserService>().InSingletonScope();
             }
             else
             {
