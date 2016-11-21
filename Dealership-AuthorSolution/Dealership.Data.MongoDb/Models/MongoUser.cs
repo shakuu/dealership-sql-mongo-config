@@ -9,7 +9,7 @@ using Dealership.Data.Common;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public class MongoUser : IUser
+    public class MongoUser : IUser, IMongoDbId
     {
         private const string UsernameProperty = "Username";
         private const string FirstNameProperty = "Firstname";

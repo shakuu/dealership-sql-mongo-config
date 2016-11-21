@@ -1,31 +1,24 @@
-﻿using Dealership.Common;
+﻿using System;
+using Dealership.Common;
 using Dealership.Data.Common;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Contracts;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public class MongoCar : MongoVehicle, ICar
+    public class MongoCar : MongoVehicle, ICar, IMongoDbId
     {
         private const string SeatsProperty = "Seats";
-
-        private readonly int seats;
 
         public MongoCar(string make, string model, decimal price, string details)
             : base(make, model, price, VehicleType.Car)
         {
-            this.seats = int.Parse(details);
+            this.Seats = int.Parse(details);
 
-            this.ValidateFields();
+            //this.ValidateFields();
         }
-
-        public int Seats
-        {
-            get
-            {
-                return this.seats;
-            }
-        }
+        
+        public int Seats { get; set; }
 
         protected override string PrintAdditionalInfo()
         {
@@ -34,7 +27,7 @@ namespace Dealership.Data.MongoDb.Models
 
         private void ValidateFields()
         {
-            Validator.ValidateIntRange(this.seats, Constants.MinSeats, Constants.MaxSeats, string.Format(Constants.NumberMustBeBetweenMinAndMax, SeatsProperty, Constants.MinSeats, Constants.MaxSeats));
+            Validator.ValidateIntRange(this.Seats, Constants.MinSeats, Constants.MaxSeats, string.Format(Constants.NumberMustBeBetweenMinAndMax, SeatsProperty, Constants.MinSeats, Constants.MaxSeats));
         }
     }
 }

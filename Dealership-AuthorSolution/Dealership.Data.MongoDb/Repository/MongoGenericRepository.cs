@@ -1,54 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Dealership.Data.Contracts;
-using MongoDB.Driver;
-using MongoDB.Bson;
-using System.Linq;
-using MongoDB.Bson.Serialization;
 using Dealership.Data.MongoDb.Models;
+
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Dealership.Data.MongoDb.Repository
 {
-    public class MongoGenericRepository<T> : IRepository<T>
+    public class MongoUserRepository : IRepository<MongoUser>
     {
         private readonly IMongoClient mongoClient;
-        private readonly IMongoCollection<T> collection;
+        private readonly IMongoCollection<MongoUser> collection;
 
-        public MongoGenericRepository()
+        public MongoUserRepository()
             : this(new MongoClient("mongodb://localhost:27017"))
         {
 
         }
 
-        public MongoGenericRepository(IMongoClient mongoClient)
+        public MongoUserRepository(IMongoClient mongoClient)
         {
             this.mongoClient = mongoClient;
             this.collection = this.mongoClient
                 .GetDatabase("dealership")
-                .GetCollection<T>(typeof(T).Name);
+                .GetCollection<MongoUser>(typeof(MongoUser).Name);
         }
 
-        public void Add(T entity)
+        public void Add(MongoUser entity)
         {
             this.collection.InsertOne(entity);
         }
 
-        public IEnumerable<T> All()
+        public IEnumerable<MongoUser> All()
         {
             var serializedCollection = this.collection.Find(new BsonDocument()).ToList();
-          
+
             return serializedCollection;
         }
 
-        public T FindByUsername(string username)
+        public MongoUser FindByUsername(string username)
         {
-            throw new NotImplementedException();
+            var filter = Builders<MongoUser>.Filter.Eq("Username", username);
+            var found = this.collection.Find(filter).ToList();
+
+            return found.FirstOrDefault();
         }
 
-        public void Update(T entity)
+        public void Update(MongoUser entity)
         {
-            throw new NotImplementedException();
+            var filter = Builders<MongoUser>.Filter.Eq("_id", entity.Id);
+            var update = Builders<MongoUser>.Update
+                .Set("Vehicles", entity.Vehicles);
+
+            var result = this.collection.UpdateOne(filter, update);
         }
     }
 }

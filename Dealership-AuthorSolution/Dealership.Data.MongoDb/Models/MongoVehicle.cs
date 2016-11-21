@@ -4,10 +4,11 @@ using Dealership.Data.Common.Enums;
 using Dealership.Data.Contracts;
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public abstract class MongoVehicle : IVehicle, ICommentable
+    public abstract class MongoVehicle : IVehicle, ICommentable, IMongoDbId
     {
         private const string MakeProperty = "Make";
         private const string ModelProperty = "Model";
@@ -15,19 +16,14 @@ namespace Dealership.Data.MongoDb.Models
         private const string WheelsProperty = "Wheels";
         private const string CommentsHeader = "    --COMMENTS--";
         private const string NoCommentsHeader = "    --NO COMMENTS--";
-
-        private readonly string make;
-        private readonly string model;
-        private readonly decimal price;
-        private readonly int wheels;
-
+        
         public MongoVehicle(string make, string model, decimal price, VehicleType type)
         {
-            this.make = make;
-            this.model = model;
-            this.price = price;
+            this.Make = make;
+            this.Model = model;
+            this.Price = price;
             this.Type = type;
-            this.wheels = (int)type;
+            this.Wheels = (int)type;
             this.Comments = new List<IComment>();
 
             this.ValidateFields();
@@ -35,39 +31,17 @@ namespace Dealership.Data.MongoDb.Models
 
         public VehicleType Type { get; protected set; }
 
-        public int Wheels
-        {
-            get
-            {
-                return this.wheels;
-            }
-        }
+        public int Wheels { get; set; }
 
-        public string Make
-        {
-            get
-            {
-                return this.make;
-            }
-        }
+        public string Make { get; set; }
 
-        public string Model
-        {
-            get
-            {
-                return this.model;
-            }
-        }
+        public string Model { get; set; }
 
-        public IList<IComment> Comments { get; private set; }
+        public IList<IComment> Comments { get; set; }
 
-        public decimal Price
-        {
-            get
-            {
-                return this.price;
-            }
-        }
+        public decimal Price { get; set; }
+
+        public object Id { get; set; }
 
         public override string ToString()
         {
@@ -110,15 +84,15 @@ namespace Dealership.Data.MongoDb.Models
 
         private void ValidateFields()
         {
-            Validator.ValidateIntRange(this.wheels, Constants.MinWheels, Constants.MaxWheels, string.Format(Constants.NumberMustBeBetweenMinAndMax, WheelsProperty, Constants.MinWheels, Constants.MaxWheels));
+            Validator.ValidateIntRange(this.Wheels, Constants.MinWheels, Constants.MaxWheels, string.Format(Constants.NumberMustBeBetweenMinAndMax, WheelsProperty, Constants.MinWheels, Constants.MaxWheels));
 
-            Validator.ValidateNull(this.make, string.Format(Constants.PropertyCannotBeNull, MakeProperty));
-            Validator.ValidateIntRange(this.make.Length, Constants.MinMakeLength, Constants.MaxMakeLength, string.Format(Constants.StringMustBeBetweenMinAndMax, MakeProperty, Constants.MinMakeLength, Constants.MaxMakeLength));
+            Validator.ValidateNull(this.Make, string.Format(Constants.PropertyCannotBeNull, MakeProperty));
+            Validator.ValidateIntRange(this.Make.Length, Constants.MinMakeLength, Constants.MaxMakeLength, string.Format(Constants.StringMustBeBetweenMinAndMax, MakeProperty, Constants.MinMakeLength, Constants.MaxMakeLength));
 
-            Validator.ValidateNull(this.model, string.Format(Constants.PropertyCannotBeNull, ModelProperty));
-            Validator.ValidateIntRange(this.model.Length, Constants.MinModelLength, Constants.MaxModelLength, string.Format(Constants.StringMustBeBetweenMinAndMax, ModelProperty, Constants.MinModelLength, Constants.MaxModelLength));
+            Validator.ValidateNull(this.Model, string.Format(Constants.PropertyCannotBeNull, ModelProperty));
+            Validator.ValidateIntRange(this.Model.Length, Constants.MinModelLength, Constants.MaxModelLength, string.Format(Constants.StringMustBeBetweenMinAndMax, ModelProperty, Constants.MinModelLength, Constants.MaxModelLength));
 
-            Validator.ValidateDecimalRange(this.price, Constants.MinPrice, Constants.MaxPrice, string.Format(Constants.NumberMustBeBetweenMinAndMax, PriceProperty, Constants.MinPrice, Constants.MaxPrice));
+            Validator.ValidateDecimalRange(this.Price, Constants.MinPrice, Constants.MaxPrice, string.Format(Constants.NumberMustBeBetweenMinAndMax, PriceProperty, Constants.MinPrice, Constants.MaxPrice));
         }
     }
 }

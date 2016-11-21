@@ -22,12 +22,11 @@ namespace Dealership
             //var user = new MongoUser("Pesho", "Peshev", "Peshev", "123456", "Normal");
             ////collection.InsertOne(user);
 
-            //var repo = new MongoGenericRepository<MongoUser>();
+            var repo = new MongoUserRepository();
 
-            //repo.Add(user);
             //var all = repo.All();
 
-            //System.Console.WriteLine(string.Join(",", all));
+            var peshos = repo.FindByUsername("Pesho");
 
             var ninject = new StandardKernel();
             ninject.Load(Assembly.GetExecutingAssembly());
