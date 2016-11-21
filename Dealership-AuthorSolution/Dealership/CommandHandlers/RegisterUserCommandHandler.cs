@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using Dealership.CommandHandlers.Base;
 using Dealership.Data.Common.Enums;
