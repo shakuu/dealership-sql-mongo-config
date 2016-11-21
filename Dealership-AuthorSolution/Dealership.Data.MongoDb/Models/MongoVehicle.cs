@@ -1,13 +1,13 @@
-﻿using Dealership.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Dealership.Common;
 using Dealership.Data.Common;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Contracts;
-using System.Collections.Generic;
-using System.Text;
-using System;
+
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System.Linq;
 
 namespace Dealership.Data.MongoDb.Models
 {

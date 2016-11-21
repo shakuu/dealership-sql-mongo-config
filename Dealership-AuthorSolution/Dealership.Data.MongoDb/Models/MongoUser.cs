@@ -6,9 +6,8 @@ using Dealership.Common;
 using Dealership.Data.Contracts;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Common;
+
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System.Linq;
 
 namespace Dealership.Data.MongoDb.Models
 {
