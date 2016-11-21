@@ -89,7 +89,23 @@ namespace Dealership.Data.MongoDb.Services
 
         public void RemoveUserVehicle(int vehicleIndex)
         {
-            this.loggedUser.Vehicles.RemoveAt(vehicleIndex);
+            var vehicleToRemove = this.loggedUser.Vehicles[vehicleIndex];
+
+            switch (vehicleToRemove.Type)
+            {
+                case VehicleType.Motorcycle:
+                    this.loggedUser.MongoMotorcycles.Remove(vehicleToRemove as MongoMotorcycle);
+                    break;
+                case VehicleType.Car:
+                    this.loggedUser.MongoCars.Remove(vehicleToRemove as MongoCar);
+                    break;
+                case VehicleType.Truck:
+                    this.loggedUser.MongoTrucks.Remove(vehicleToRemove as MongoTruck);
+                    break;
+                default:
+                    break;
+            }
+
             this.UpdateUser();
         }
 

@@ -20,26 +20,26 @@ namespace Dealership
             //var client = new MongoClient("mongodb://localhost:27017");
             //var db = client.GetDatabase("dealership");
 
-            var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
+            //var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
 
-            var repo = new MongoUserRepository();
-            repo.Add(user);
+            //var repo = new MongoUserRepository();
+            //repo.Add(user);
 
-            var pesho = repo.FindByUsername("Gosho");
-            MongoVehicle car = new MongoCar("make", "model", 10000, "5");
+            //var pesho = repo.FindByUsername("Gosho");
+            //MongoVehicle car = new MongoCar("make", "model", 10000, "5");
 
-            pesho.AddVehicle(car);
-            repo.Update(pesho);
+            //pesho.AddVehicle(car);
+            //repo.Update(pesho);
 
-            var comment = new MongoComment("content");
-            car.MongoComments.Add(comment);
-            repo.Update(pesho);
+            //var comment = new MongoComment("content");
+            //car.MongoComments.Add(comment);
+            //repo.Update(pesho);
 
-            //var ninject = new StandardKernel();
-            //ninject.Load(Assembly.GetExecutingAssembly());
+            var ninject = new StandardKernel();
+            ninject.Load(Assembly.GetExecutingAssembly());
 
-            //var engine = ninject.Get<IEngine>();
-            //engine.Start();
+            var engine = ninject.Get<IEngine>();
+            engine.Start();
         }
     }
 }

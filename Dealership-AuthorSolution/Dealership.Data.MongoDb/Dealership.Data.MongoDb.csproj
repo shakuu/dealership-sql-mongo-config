@@ -55,8 +55,8 @@
     <Compile Include="IMongoDbId.cs" />
     <Compile Include="Models\MongoCar.cs" />
     <Compile Include="Models\MongoComment.cs" />
-    <Compile Include="Models\Motorcycle.cs" />
-    <Compile Include="Models\Truck.cs" />
+    <Compile Include="Models\MongoMotorcycle.cs" />
+    <Compile Include="Models\MongoTruck.cs" />
     <Compile Include="Models\MongoUser.cs" />
     <Compile Include="Models\MongoVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

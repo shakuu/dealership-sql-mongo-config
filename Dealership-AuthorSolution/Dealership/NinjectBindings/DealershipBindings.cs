@@ -19,6 +19,9 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
+using Dealership.Data.MongoDb.Repository;
+using Dealership.Data.MongoDb.Services;
+using Dealership.Data.MongoDb.Models;
 
 namespace Dealership.NinjectBindings
 {
@@ -57,9 +60,16 @@ namespace Dealership.NinjectBindings
                 Console.Write(param);
             });
 
-            this.Bind<IVehicle>().To<Car>().Named("Car");
-            this.Bind<IVehicle>().To<Truck>().Named("Truck");
-            this.Bind<IVehicle>().To<Motorcycle>().Named("Motorcycle");
+            //this.Bind<IVehicle>().To<Car>().Named("Car");
+            //this.Bind<IVehicle>().To<Truck>().Named("Truck");
+            //this.Bind<IVehicle>().To<Motorcycle>().Named("Motorcycle");
+
+            this.Rebind<IUser>().To<MongoUser>();
+            this.Rebind<IComment>().To<MongoComment>();
+
+            this.Bind<IVehicle>().To<MongoCar>().Named("Car");
+            this.Bind<IVehicle>().To<MongoTruck>().Named("Truck");
+            this.Bind<IVehicle>().To<MongoMotorcycle>().Named("Motorcycle");
 
             this.Bind<ICommandFactory>().ToFactory().InSingletonScope();
             this.Bind<IDealershipFactory>().ToFactory().InSingletonScope();
@@ -115,7 +125,10 @@ namespace Dealership.NinjectBindings
 
             this.Bind<IEngine>().To<DealershipEngine>().InSingletonScope();
 
-            this.Bind<IUserService>().To<HashSetUserService>().InSingletonScope();
+            //this.Bind<IUserService>().To<HashSetUserService>().InSingletonScope();
+
+            this.Bind<IRepository<MongoUser>>().To<MongoUserRepository>().InSingletonScope();
+            this.Bind<IUserService>().To<MongoDbUserService>().InSingletonScope();
         }
     }
 }

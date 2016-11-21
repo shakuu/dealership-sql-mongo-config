@@ -33,7 +33,7 @@ namespace Dealership.Data.MongoDb.Models
             this.MongoTrucks = new List<MongoTruck>();
             this.MongoMotorcycles = new List<MongoMotorcycle>();
 
-            //this.ValidateFields();
+            this.ValidateFields();
         }
 
         [BsonIgnoreIfDefault]
@@ -92,8 +92,7 @@ namespace Dealership.Data.MongoDb.Models
                 throw new ArgumentException(Constants.AdminCannotAddVehicles);
             }
 
-            this.MongoCars.Add(vehicle as MongoCar);
-            //this.Vehicles.Add(vehicle);
+            this.Vehicles.Add(vehicle);
         }
 
         public void RemoveComment(IComment commentToRemove, IVehicle vehicleToRemoveComment)

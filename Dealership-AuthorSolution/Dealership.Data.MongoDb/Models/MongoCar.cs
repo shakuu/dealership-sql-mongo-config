@@ -15,7 +15,7 @@ namespace Dealership.Data.MongoDb.Models
         {
             this.Seats = int.Parse(details);
 
-            //this.ValidateFields();
+            this.ValidateFields();
         }
         
         public int Seats { get; set; }
