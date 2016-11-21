@@ -1,17 +1,24 @@
-﻿using Dealership.Data.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
+using Dealership.Data.Services.Contracts;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Contracts;
+using Dealership.Data.MongoDb.Models;
 
 namespace Dealership.Data.MongoDb.Services
 {
     public class MongoDbUserService : IUserService
     {
-        private IUser loggedUser;
+        private readonly IRepository<MongoUser> mongoUsers;
+        private readonly IDealershipFactory dealershipFactory;
+
+        private MongoUser loggedUser;
+
+        public MongoDbUserService(IRepository<MongoUser> mongoUsers, IDealershipFactory dealershipFactory)
+        {
+            this.mongoUsers = mongoUsers;
+            this.dealershipFactory = dealershipFactory;
+        }
 
         public IUser LoggedUser
         {
@@ -19,46 +26,66 @@ namespace Dealership.Data.MongoDb.Services
             {
                 return this.loggedUser;
             }
+
+            set
+            {
+                this.loggedUser = (MongoUser)value;
+            }
         }
 
         public void AddUserComment(string content, int vehicleIndex)
         {
-            throw new NotImplementedException();
+            var comment = this.dealershipFactory.CreateComment(content);
+            this.loggedUser.Vehicles[vehicleIndex].Comments.Add(comment);
+            this.UpdateUser();
         }
 
-        public void AddUserVehicle(string make, string model, decimal price, string additional, VehicleType type)
+        public void AddUserVehicle(string make, string model, decimal price, string details, VehicleType type)
         {
-            throw new NotImplementedException();
+            var vehicle = this.dealershipFactory.GetVehicle(type.ToString(), make, model, price, details);
+            this.loggedUser.Vehicles.Add(vehicle);
+            this.UpdateUser();
         }
 
         public IUser CreateUser(string username, string firstName, string lastName, string password, string role)
         {
-            throw new NotImplementedException();
+            var user = this.dealershipFactory.CreateUser(username, firstName, lastName, password, role);
+            this.mongoUsers.Add((MongoUser)user);
+
+            return user;
         }
 
         public IEnumerable<IUser> FindAll()
         {
-            throw new NotImplementedException();
+            return this.mongoUsers.All();
         }
 
         public IUser FindByUsername(string username)
         {
-            throw new NotImplementedException();
+            var user = this.mongoUsers.FindByUsername(username);
+            return user;
         }
 
         public void RemoveUserComment(int vehicleIndex, int commentIndex)
         {
-            throw new NotImplementedException();
+            this.loggedUser.Vehicles[vehicleIndex].Comments.RemoveAt(commentIndex);
+            this.UpdateUser();
         }
 
         public void RemoveUserVehicle(int vehicleIndex)
         {
-            throw new NotImplementedException();
+            this.loggedUser.Vehicles.RemoveAt(vehicleIndex);
+            this.UpdateUser();
         }
 
         public void SetLoggedUser(IUser user)
         {
-            throw new NotImplementedException();
+            this.LoggedUser = user;
+        }
+
+        private void UpdateUser()
+        {
+            this.mongoUsers.Update(this.loggedUser);
         }
     }
 }

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+
 
 using Dealership.Common;
 using Dealership.Common.Contracts;
 using Dealership.CommandHandlers.Contracts;
 using Dealership.CommandHandlers;
+using Dealership.Data.Contracts;
+using Dealership.Data.Models;
+using Dealership.Data.Services.Contracts;
+using Dealership.Data.Services;
 using Dealership.Engine;
 using Dealership.Factories;
 
@@ -13,12 +19,6 @@ using Ninject;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
-using Dealership.Data.Factories;
-using Dealership.Data.Contracts;
-using Dealership.Data.Models;
-using System.Linq;
-using Dealership.Data.Services.Contracts;
-using Dealership.Data.Services;
 
 namespace Dealership.NinjectBindings
 {

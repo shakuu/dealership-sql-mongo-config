@@ -4,7 +4,6 @@ using System.Linq;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Contracts;
 using Dealership.Data.Services.Contracts;
-using Dealership.Data.Factories;
 
 namespace Dealership.Data.Services
 {

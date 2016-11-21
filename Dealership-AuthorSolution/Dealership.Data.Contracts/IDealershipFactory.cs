@@ -1,6 +1,6 @@
 ﻿using Dealership.Data.Contracts;
 
-namespace Dealership.Data.Factories
+namespace Dealership.Data.Contracts
 {
     public interface IDealershipFactory
     {

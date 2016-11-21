@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dealership.Common;
 using System.Text;
+
+using Dealership.Common;
 using Dealership.Data.Contracts;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Common;
@@ -17,58 +18,29 @@ namespace Dealership.Data.MongoDb.Models
         private const string NoVehiclesHeader = "--NO VEHICLES--";
         private const string UserHeader = "--USER {0}--";
 
-        private readonly string firstName;
-        private readonly string lastName;
-        private readonly string username;
-        private readonly string password;
-
         public MongoUser(string username, string firstName, string lastName, string password, string role)
         {
-            this.username = username;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.password = password;
+            this.Username = username;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Password = password;
             this.Role = (Role)Enum.Parse(typeof(Role), role);
             this.Vehicles = new List<IVehicle>();
 
             this.ValidateFields();
         }
 
-        public string Username
-        {
-            get
-            {
-                return this.username;
-            }
-        }
+        public string Username { get; set; }
 
-        public string FirstName
-        {
-            get
-            {
-                return this.firstName;
-            }
-        }
+        public string FirstName { get; set; }
 
-        public string LastName
-        {
-            get
-            {
-                return this.lastName;
-            }
-        }
+        public string LastName { get; set; }
 
-        public string Password
-        {
-            get
-            {
-                return this.password;
-            }
-        }
+        public string Password { get; set; }
 
-        public Role Role { get; private set; }
+        public Role Role { get; set; }
 
-        public IList<IVehicle> Vehicles { get; private set; }
+        public IList<IVehicle> Vehicles { get; set; }
 
         public void AddComment(IComment commentToAdd, IVehicle vehicleToAddComment)
         {
@@ -144,19 +116,19 @@ namespace Dealership.Data.MongoDb.Models
 
         private void ValidateFields()
         {
-            Validator.ValidateNull(this.username, string.Format(Constants.PropertyCannotBeNull, UsernameProperty));
-            Validator.ValidateSymbols(this.username, Constants.UsernamePattern, string.Format(Constants.InvalidSymbols, UsernameProperty));
-            Validator.ValidateIntRange(this.username.Length, Constants.MinNameLength, Constants.MaxNameLength, string.Format(Constants.StringMustBeBetweenMinAndMax, UsernameProperty, Constants.MinNameLength, Constants.MaxNameLength));
+            Validator.ValidateNull(this.Username, string.Format(Constants.PropertyCannotBeNull, UsernameProperty));
+            Validator.ValidateSymbols(this.Username, Constants.UsernamePattern, string.Format(Constants.InvalidSymbols, UsernameProperty));
+            Validator.ValidateIntRange(this.Username.Length, Constants.MinNameLength, Constants.MaxNameLength, string.Format(Constants.StringMustBeBetweenMinAndMax, UsernameProperty, Constants.MinNameLength, Constants.MaxNameLength));
 
-            Validator.ValidateNull(this.firstName, string.Format(Constants.PropertyCannotBeNull, FirstNameProperty));
-            Validator.ValidateIntRange(this.firstName.Length, Constants.MinNameLength, Constants.MaxNameLength, string.Format(Constants.StringMustBeBetweenMinAndMax, FirstNameProperty, Constants.MinNameLength, Constants.MaxNameLength));
+            Validator.ValidateNull(this.FirstName, string.Format(Constants.PropertyCannotBeNull, FirstNameProperty));
+            Validator.ValidateIntRange(this.FirstName.Length, Constants.MinNameLength, Constants.MaxNameLength, string.Format(Constants.StringMustBeBetweenMinAndMax, FirstNameProperty, Constants.MinNameLength, Constants.MaxNameLength));
 
-            Validator.ValidateNull(this.lastName, string.Format(Constants.PropertyCannotBeNull, LastNameProperty));
-            Validator.ValidateIntRange(this.lastName.Length, Constants.MinNameLength, Constants.MaxNameLength, string.Format(Constants.StringMustBeBetweenMinAndMax, LastNameProperty, Constants.MinNameLength, Constants.MaxNameLength));
+            Validator.ValidateNull(this.LastName, string.Format(Constants.PropertyCannotBeNull, LastNameProperty));
+            Validator.ValidateIntRange(this.LastName.Length, Constants.MinNameLength, Constants.MaxNameLength, string.Format(Constants.StringMustBeBetweenMinAndMax, LastNameProperty, Constants.MinNameLength, Constants.MaxNameLength));
 
-            Validator.ValidateNull(this.password, string.Format(Constants.PropertyCannotBeNull, PasswordProperty));
-            Validator.ValidateSymbols(this.password, Constants.PasswordPattern, string.Format(Constants.InvalidSymbols, PasswordProperty));
-            Validator.ValidateIntRange(this.password.Length, Constants.MinPasswordLength, Constants.MaxPasswordLength, string.Format(Constants.StringMustBeBetweenMinAndMax, PasswordProperty, Constants.MinPasswordLength, Constants.MaxPasswordLength));
+            Validator.ValidateNull(this.Password, string.Format(Constants.PropertyCannotBeNull, PasswordProperty));
+            Validator.ValidateSymbols(this.Password, Constants.PasswordPattern, string.Format(Constants.InvalidSymbols, PasswordProperty));
+            Validator.ValidateIntRange(this.Password.Length, Constants.MinPasswordLength, Constants.MaxPasswordLength, string.Format(Constants.StringMustBeBetweenMinAndMax, PasswordProperty, Constants.MinPasswordLength, Constants.MaxPasswordLength));
         }
     }
 }
