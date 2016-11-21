@@ -27,8 +27,10 @@ namespace Dealership.Data.MongoDb.Models
             this.Role = (Role)Enum.Parse(typeof(Role), role);
             this.Vehicles = new List<IVehicle>();
 
-            this.ValidateFields();
+            //this.ValidateFields();
         }
+
+        public object Id { get; set; }
 
         public string Username { get; set; }
 

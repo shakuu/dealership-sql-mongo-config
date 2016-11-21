@@ -43,8 +43,10 @@
     <Compile Include="ICar.cs" />
     <Compile Include="IComment.cs" />
     <Compile Include="ICommentable.cs" />
+    <Compile Include="IDealershipFactory.cs" />
     <Compile Include="IMotorcycle.cs" />
     <Compile Include="IPriceable.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="ITruck.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="IVehicle.cs" />

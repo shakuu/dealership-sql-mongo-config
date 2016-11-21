@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 using Dealership.Data.Contracts;
 using MongoDB.Driver;
+using MongoDB.Bson;
+using System.Linq;
+using MongoDB.Bson.Serialization;
+using Dealership.Data.MongoDb.Models;
 
 namespace Dealership.Data.MongoDb.Repository
 {
@@ -32,7 +36,9 @@ namespace Dealership.Data.MongoDb.Repository
 
         public IEnumerable<T> All()
         {
-            throw new NotImplementedException();
+            var serializedCollection = this.collection.Find(new BsonDocument()).ToList();
+          
+            return serializedCollection;
         }
 
         public T FindByUsername(string username)
