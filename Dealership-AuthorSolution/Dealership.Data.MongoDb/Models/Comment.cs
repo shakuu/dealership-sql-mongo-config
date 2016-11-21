@@ -1,34 +1,17 @@
-﻿
-using Dealership.Common;
-using Dealership.Data.Common;
+﻿using System.Text;
+
 using Dealership.Data.Contracts;
-using System.Text;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public class Comment : IComment
+    public class MongoComment : IComment
     {
         private const string CommentHeader = "    ----------";
         private const string ContentProperty = "Content";
         private const string CommentIndentation = "    ";
         private const string AuthorHeader = "      User: ";
 
-        private readonly string content;
-
-        public Comment(string content)
-        {
-            this.content = content;
-
-            this.ValidateFields();
-        }
-
-        public string Content
-        {
-            get
-            {
-                return this.content;
-            }
-        }
+        public string Content { get; set; }
 
         public string Author { get; set; }
 
@@ -42,12 +25,6 @@ namespace Dealership.Data.MongoDb.Models
             builder.Append(string.Format("{0}", CommentHeader));
 
             return builder.ToString();
-        }
-
-        private void ValidateFields()
-        {
-            Validator.ValidateNull(this.content, string.Format(Constants.PropertyCannotBeNull, ContentProperty));
-            Validator.ValidateIntRange(this.content.Length, Constants.MinCommentLength, Constants.MaxCommentLength, string.Format(Constants.StringMustBeBetweenMinAndMax, ContentProperty, Constants.MinCommentLength, Constants.MaxCommentLength));
         }
     }
 }
