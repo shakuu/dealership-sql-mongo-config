@@ -66,6 +66,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -91,6 +92,7 @@
     <Compile Include="Common\Contracts\IIOProvider.cs" />
     <Compile Include="Common\GenericIOProvider.cs" />
     <Compile Include="Common\Validator.cs" />
+    <Compile Include="ConfigurationReader\ConfigurationReader.cs" />
     <Compile Include="Engine\Command.cs" />
     <Compile Include="Engine\DealershipEngine.cs" />
     <Compile Include="Engine\ICommand.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
