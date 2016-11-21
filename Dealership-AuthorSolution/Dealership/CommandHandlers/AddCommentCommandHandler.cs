@@ -24,10 +24,10 @@ namespace Dealership.CommandHandlers
         protected override string Handle(ICommand command)
         {
             var content = command.Parameters[0];
-            var author = command.Parameters[1];
+            var target = command.Parameters[1];
             var vehicleIndex = int.Parse(command.Parameters[2]) - 1;
 
-            base.UserService.AddUserComment(content, vehicleIndex);
+            base.UserService.AddUserComment(content, target, vehicleIndex);
 
             return string.Format(AddCommentCommandHandler.CommentAddedSuccessfully, base.UserService.LoggedUser.Username);
         }

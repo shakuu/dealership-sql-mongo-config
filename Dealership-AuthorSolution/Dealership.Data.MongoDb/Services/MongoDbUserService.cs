@@ -33,10 +33,17 @@ namespace Dealership.Data.MongoDb.Services
             }
         }
 
-        public void AddUserComment(string content, int vehicleIndex)
+        public void AddUserComment(string content, string targetUsername, int vehicleIndex)
         {
             var comment = this.dealershipFactory.CreateComment(content);
-            this.loggedUser.Vehicles[vehicleIndex].Comments.Add(comment);
+            comment.Author = this.loggedUser.Username;
+
+            var user = this.mongoUsers.FindByUsername(targetUsername);
+            user.Vehicles[vehicleIndex].Comments.Add(comment);
+
+            //this.loggedUser.Vehicles[vehicleIndex].Comments.Add(comment);
+            this.mongoUsers.Update(user);
+
             this.UpdateUser();
         }
 
@@ -111,7 +118,9 @@ namespace Dealership.Data.MongoDb.Services
 
         public void SetLoggedUser(IUser user)
         {
-            this.LoggedUser = user;
+            var mongoUser = this.mongoUsers.FindByUsername(user.Username);
+
+            this.LoggedUser = mongoUser;
         }
 
         private void UpdateUser()

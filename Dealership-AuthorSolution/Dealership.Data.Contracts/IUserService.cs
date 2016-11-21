@@ -14,14 +14,14 @@ namespace Dealership.Data.Services.Contracts
         IUser CreateUser(string username, string firstName, string lastName, string password, string role);
 
         IEnumerable<IUser> FindAll();
-        
+
         IUser FindByUsername(string username);
 
         void RemoveUserComment(int vehicleIndex, int commentIndex);
 
         void RemoveUserVehicle(int vehicleIndex);
 
-        void AddUserComment(string content, int vehicleIndex);
+        void AddUserComment(string content, string targetUsername, int vehicleIndex);
 
         void AddUserVehicle(string make, string model, decimal price, string additional, VehicleType type);
     }

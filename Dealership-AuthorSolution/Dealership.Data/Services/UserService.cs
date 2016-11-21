@@ -28,7 +28,7 @@ namespace Dealership.Data.Services
             }
         }
 
-        public void AddUserComment(string content, int vehicleIndex)
+        public void AddUserComment(string content, string targetUsername, int vehicleIndex)
         {
             var comment = this.dealershipFactory.CreateComment(content);
             this.loggedUser.Vehicles[vehicleIndex].Comments.Add(comment);
@@ -52,7 +52,7 @@ namespace Dealership.Data.Services
         {
             return new List<IUser>(this.users);
         }
-        
+
         public IUser FindByUsername(string username)
         {
             var user = this.users.FirstOrDefault(u => u.Username == username);
