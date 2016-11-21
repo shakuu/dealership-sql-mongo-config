@@ -17,7 +17,7 @@ namespace Dealership.Data.MongoDb.Models
 
             //this.ValidateFields();
         }
-        
+
         public int Seats { get; set; }
 
         protected override string PrintAdditionalInfo()

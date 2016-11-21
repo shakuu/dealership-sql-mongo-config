@@ -26,13 +26,17 @@ namespace Dealership
 
             //var all = repo.All();
 
-            var peshos = repo.FindByUsername("Pesho");
+            var pesho = repo.FindByUsername("Pesho");
+            var car = new MongoCar("make", "model", 10000, "5");
+            pesho.Vehicles.Add(car);
 
-            var ninject = new StandardKernel();
-            ninject.Load(Assembly.GetExecutingAssembly());
+            repo.Update(pesho);
 
-            var engine = ninject.Get<IEngine>();
-            engine.Start();
+            //var ninject = new StandardKernel();
+            //ninject.Load(Assembly.GetExecutingAssembly());
+
+            //var engine = ninject.Get<IEngine>();
+            //engine.Start();
         }
     }
 }
