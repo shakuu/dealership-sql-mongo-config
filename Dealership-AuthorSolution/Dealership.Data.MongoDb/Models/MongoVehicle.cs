@@ -31,7 +31,7 @@ namespace Dealership.Data.MongoDb.Models
             this.ValidateFields();
         }
 
-        public VehicleType Type { get; protected set; }
+        public VehicleType Type { get; set; }
 
         public int Wheels { get; set; }
 

@@ -2,9 +2,7 @@
 using Dealership.Data.Common;
 using Dealership.Data.Contracts;
 using System.Text;
-using System;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
 
 namespace Dealership.Data.MongoDb.Models
 {
@@ -21,7 +19,7 @@ namespace Dealership.Data.MongoDb.Models
 
             //this.ValidateFields();
         }
-
+        
         public string Content { get; set; }
 
         public string Author { get; set; }

@@ -33,7 +33,7 @@ namespace Dealership.Data.Models
             this.ValidateFields();
         }
 
-        public VehicleType Type { get; protected set; }
+        public VehicleType Type { get; set; }
 
         public int Wheels
         {
@@ -42,6 +42,7 @@ namespace Dealership.Data.Models
                 return this.wheels;
             }
         }
+
 
         public string Make
         {
@@ -66,6 +67,11 @@ namespace Dealership.Data.Models
             get
             {
                 return this.price;
+            }
+
+            set
+            {
+
             }
         }
 

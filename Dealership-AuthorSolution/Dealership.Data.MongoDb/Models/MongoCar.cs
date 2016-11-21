@@ -6,7 +6,7 @@ using Dealership.Data.Contracts;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public class MongoCar : MongoVehicle, ICar
+    public class MongoCar : MongoVehicle, ICar, IMongoDbId
     {
         private const string SeatsProperty = "Seats";
 
@@ -17,6 +17,8 @@ namespace Dealership.Data.MongoDb.Models
 
             //this.ValidateFields();
         }
+
+        public object Id { get; set; }
 
         public int Seats { get; set; }
 

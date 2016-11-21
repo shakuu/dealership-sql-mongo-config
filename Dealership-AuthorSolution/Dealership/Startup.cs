@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using Dealership.Data.Models;
 using Dealership.Data.MongoDb.Models;
 using Dealership.Data.MongoDb.Repository;
+using Dealership.Data.Contracts;
 
 namespace Dealership
 {
@@ -19,21 +20,24 @@ namespace Dealership
 
             //var collection = db.GetCollection<User>("users");
 
-            var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
-            //collection.InsertOne(user);
+            //var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
+            ////collection.InsertOne(user);
 
-            var repo = new MongoUserRepository();
-            repo.Add(user);
-            //var all = repo.All();
+            //var repo = new MongoUserRepository();
+            //repo.Add(user);
+            ////var all = repo.All();
 
-            var pesho = repo.FindByUsername("Gosho");
-            var car = new MongoCar("make", "model", 10000, "5");
-            pesho.Vehicles.Add(car);
-            repo.Update(pesho);
+            //var pesho = repo.FindByUsername("Gosho");
+            //MongoVehicle car = new MongoCar("make", "model", 10000, "5");
 
-            var comment = new MongoComment("content");
-            car.Comments.Add(comment);
-            repo.Update(pesho);
+            //pesho.AddVehicle(car);
+            //repo.Update(pesho);
+
+            //var comment = new MongoComment("content");
+            //car.Comments.Add(comment);
+            //repo.Update(pesho);
+
+            //IVehicle carzzz = car;
 
             //var ninject = new StandardKernel();
             //ninject.Load(Assembly.GetExecutingAssembly());

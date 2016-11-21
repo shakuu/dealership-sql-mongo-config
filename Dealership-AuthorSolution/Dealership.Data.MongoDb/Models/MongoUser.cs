@@ -8,6 +8,7 @@ using Dealership.Data.Common.Enums;
 using Dealership.Data.Common;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.Linq;
 
 namespace Dealership.Data.MongoDb.Models
 {
@@ -31,7 +32,7 @@ namespace Dealership.Data.MongoDb.Models
 
             //this.ValidateFields();
         }
-        
+
         [BsonIgnoreIfDefault]
         public object Id { get; set; }
 
@@ -44,7 +45,7 @@ namespace Dealership.Data.MongoDb.Models
         public string Password { get; set; }
 
         public Role Role { get; set; }
-
+        
         public IList<IVehicle> Vehicles { get; set; }
 
         public void AddComment(IComment commentToAdd, IVehicle vehicleToAddComment)

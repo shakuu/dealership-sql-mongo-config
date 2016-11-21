@@ -10,6 +10,6 @@ namespace Dealership.Data.Contracts
 
         string Make { get; }
 
-        string Model { get;  }
+        string Model { get; }
     }
 }
