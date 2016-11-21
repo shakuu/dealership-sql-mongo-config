@@ -28,7 +28,10 @@ namespace Dealership.Data.MongoDb.Models
             this.LastName = lastName;
             this.Password = password;
             this.Role = (Role)Enum.Parse(typeof(Role), role);
-            this.Vehicles = new List<IVehicle>();
+            //this.Vehicles = new List<IVehicle>();
+            this.MongoCars = new List<MongoCar>();
+            this.MongoTrucks = new List<MongoTruck>();
+            this.MongoMotorcycles = new List<MongoMotorcycle>();
 
             //this.ValidateFields();
         }
@@ -45,15 +48,35 @@ namespace Dealership.Data.MongoDb.Models
         public string Password { get; set; }
 
         public Role Role { get; set; }
-        
-        public IList<IVehicle> Vehicles { get; set; }
+
+        public List<MongoCar> MongoCars { get; set; }
+
+        public List<MongoTruck> MongoTrucks { get; set; }
+
+        public List<MongoMotorcycle> MongoMotorcycles { get; set; }
+
+
+        [BsonIgnore]
+        public IList<IVehicle> Vehicles
+        {
+            get
+            {
+                var vehicles = new List<IVehicle>();
+                vehicles.AddRange(this.MongoCars);
+                vehicles.AddRange(this.MongoTrucks);
+                vehicles.AddRange(this.MongoMotorcycles);
+
+                return vehicles;
+            }
+        }
 
         public void AddComment(IComment commentToAdd, IVehicle vehicleToAddComment)
         {
             Validator.ValidateNull(commentToAdd, Constants.CommentCannotBeNull);
             Validator.ValidateNull(vehicleToAddComment, Constants.CommentCannotBeNull);
 
-            vehicleToAddComment.Comments.Add(commentToAdd);
+            var mongoVehicle = vehicleToAddComment as MongoVehicle;
+            mongoVehicle.MongoComments.Add(commentToAdd as MongoComment);
         }
 
         public void AddVehicle(IVehicle vehicle)
@@ -69,7 +92,8 @@ namespace Dealership.Data.MongoDb.Models
                 throw new ArgumentException(Constants.AdminCannotAddVehicles);
             }
 
-            this.Vehicles.Add(vehicle);
+            this.MongoCars.Add(vehicle as MongoCar);
+            //this.Vehicles.Add(vehicle);
         }
 
         public void RemoveComment(IComment commentToRemove, IVehicle vehicleToRemoveComment)

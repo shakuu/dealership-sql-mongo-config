@@ -43,7 +43,22 @@ namespace Dealership.Data.MongoDb.Services
         public void AddUserVehicle(string make, string model, decimal price, string details, VehicleType type)
         {
             var vehicle = this.dealershipFactory.GetVehicle(type.ToString(), make, model, price, details);
-            this.loggedUser.Vehicles.Add(vehicle);
+
+            switch (type)
+            {
+                case VehicleType.Motorcycle:
+                    this.loggedUser.MongoMotorcycles.Add(vehicle as MongoMotorcycle);
+                    break;
+                case VehicleType.Car:
+                    this.loggedUser.MongoCars.Add(vehicle as MongoCar);
+                    break;
+                case VehicleType.Truck:
+                    this.loggedUser.MongoTrucks.Add(vehicle as MongoTruck);
+                    break;
+                default:
+                    break;
+            }
+
             this.UpdateUser();
         }
 

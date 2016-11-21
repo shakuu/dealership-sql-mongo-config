@@ -7,10 +7,11 @@ using System.Text;
 using System;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.Linq;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public abstract class MongoVehicle : IVehicle, ICommentable
+    public class MongoVehicle : IVehicle, ICommentable
     {
         private const string MakeProperty = "Make";
         private const string ModelProperty = "Model";
@@ -26,10 +27,13 @@ namespace Dealership.Data.MongoDb.Models
             this.Price = price;
             this.Type = type;
             this.Wheels = (int)type;
-            this.Comments = new List<IComment>();
-
+            //this.Comments = new List<IComment>();
+            this.MongoComments = new List<MongoComment>();
             this.ValidateFields();
         }
+
+        [BsonIgnoreIfDefault]
+        public object Id { get; set; }
 
         public VehicleType Type { get; set; }
 
@@ -39,10 +43,19 @@ namespace Dealership.Data.MongoDb.Models
 
         public string Model { get; set; }
 
-        public IList<IComment> Comments { get; set; }
+        public List<MongoComment> MongoComments { get; set; }
+
+        [BsonIgnore]
+        public IList<IComment> Comments
+        {
+            get
+            {
+                return this.MongoComments.Select(c => c as IComment).ToList();
+            }
+        }
 
         public decimal Price { get; set; }
-        
+
         public override string ToString()
         {
             var builder = new StringBuilder();
@@ -57,7 +70,10 @@ namespace Dealership.Data.MongoDb.Models
             return builder.ToString().TrimEnd();
         }
 
-        protected abstract string PrintAdditionalInfo();
+        protected virtual string PrintAdditionalInfo()
+        {
+            return string.Empty;
+        }
 
         private string PrintComments()
         {

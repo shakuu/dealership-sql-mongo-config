@@ -8,6 +8,8 @@ using Dealership.Data.Models;
 using Dealership.Data.MongoDb.Models;
 using Dealership.Data.MongoDb.Repository;
 using Dealership.Data.Contracts;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dealership
 {
@@ -18,26 +20,20 @@ namespace Dealership
             //var client = new MongoClient("mongodb://localhost:27017");
             //var db = client.GetDatabase("dealership");
 
-            //var collection = db.GetCollection<User>("users");
+            var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
 
-            //var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
-            ////collection.InsertOne(user);
+            var repo = new MongoUserRepository();
+            repo.Add(user);
 
-            //var repo = new MongoUserRepository();
-            //repo.Add(user);
-            ////var all = repo.All();
+            var pesho = repo.FindByUsername("Gosho");
+            MongoVehicle car = new MongoCar("make", "model", 10000, "5");
 
-            //var pesho = repo.FindByUsername("Gosho");
-            //MongoVehicle car = new MongoCar("make", "model", 10000, "5");
+            pesho.AddVehicle(car);
+            repo.Update(pesho);
 
-            //pesho.AddVehicle(car);
-            //repo.Update(pesho);
-
-            //var comment = new MongoComment("content");
-            //car.Comments.Add(comment);
-            //repo.Update(pesho);
-
-            //IVehicle carzzz = car;
+            var comment = new MongoComment("content");
+            car.MongoComments.Add(comment);
+            repo.Update(pesho);
 
             //var ninject = new StandardKernel();
             //ninject.Load(Assembly.GetExecutingAssembly());

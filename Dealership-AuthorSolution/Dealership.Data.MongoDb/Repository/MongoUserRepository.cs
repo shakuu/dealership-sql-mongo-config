@@ -43,16 +43,19 @@ namespace Dealership.Data.MongoDb.Repository
         public MongoUser FindByUsername(string username)
         {
             var filter = Builders<MongoUser>.Filter.Eq("Username", username);
-            var found = this.collection.Find(filter).ToList();
+            var allMathces = this.collection.Find(filter).ToList();
+            var found = allMathces.FirstOrDefault();
 
-            return found.FirstOrDefault();
+            return found;
         }
 
         public void Update(MongoUser entity)
         {
             var filter = Builders<MongoUser>.Filter.Eq("_id", entity.Id);
             var update = Builders<MongoUser>.Update
-                .Set("Vehicles", entity.Vehicles);
+                .Set("MongoCars", entity.MongoCars)
+                .Set("MongoTrucks", entity.MongoTrucks)
+                .Set("MongoMotorcycles", entity.MongoMotorcycles);
 
             var result = this.collection.UpdateOne(filter, update);
         }
