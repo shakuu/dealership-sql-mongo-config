@@ -40,8 +40,7 @@ namespace Dealership.Data.MongoDb.Services
 
             var user = this.mongoUsers.FindByUsername(targetUsername);
             user.Vehicles[vehicleIndex].Comments.Add(comment);
-
-            //this.loggedUser.Vehicles[vehicleIndex].Comments.Add(comment);
+            
             this.mongoUsers.Update(user);
 
             this.UpdateUser();

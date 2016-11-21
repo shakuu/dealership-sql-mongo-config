@@ -3,13 +3,6 @@
 using Dealership.Engine;
 
 using Ninject;
-using MongoDB.Driver;
-using Dealership.Data.Models;
-using Dealership.Data.MongoDb.Models;
-using Dealership.Data.MongoDb.Repository;
-using Dealership.Data.Contracts;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Dealership
 {
