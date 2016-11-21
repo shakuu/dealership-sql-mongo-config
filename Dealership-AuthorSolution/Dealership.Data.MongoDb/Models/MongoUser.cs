@@ -6,6 +6,8 @@ using Dealership.Common;
 using Dealership.Data.Contracts;
 using Dealership.Data.Common.Enums;
 using Dealership.Data.Common;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace Dealership.Data.MongoDb.Models
 {
@@ -29,7 +31,8 @@ namespace Dealership.Data.MongoDb.Models
 
             //this.ValidateFields();
         }
-
+        
+        [BsonIgnoreIfDefault]
         public object Id { get; set; }
 
         public string Username { get; set; }

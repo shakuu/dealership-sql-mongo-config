@@ -25,7 +25,7 @@ namespace Dealership.Data.MongoDb.Repository
             this.mongoClient = mongoClient;
             this.collection = this.mongoClient
                 .GetDatabase("dealership")
-                .GetCollection<MongoUser>(typeof(MongoUser).Name);
+                .GetCollection<MongoUser>(typeof(MongoUser).Name.ToLower());
         }
 
         public void Add(MongoUser entity)

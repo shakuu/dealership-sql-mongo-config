@@ -5,10 +5,12 @@ using Dealership.Data.Contracts;
 using System.Collections.Generic;
 using System.Text;
 using System;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace Dealership.Data.MongoDb.Models
 {
-    public abstract class MongoVehicle : IVehicle, ICommentable, IMongoDbId
+    public abstract class MongoVehicle : IVehicle, ICommentable
     {
         private const string MakeProperty = "Make";
         private const string ModelProperty = "Model";
@@ -16,7 +18,7 @@ namespace Dealership.Data.MongoDb.Models
         private const string WheelsProperty = "Wheels";
         private const string CommentsHeader = "    --COMMENTS--";
         private const string NoCommentsHeader = "    --NO COMMENTS--";
-        
+
         public MongoVehicle(string make, string model, decimal price, VehicleType type)
         {
             this.Make = make;
@@ -40,9 +42,7 @@ namespace Dealership.Data.MongoDb.Models
         public IList<IComment> Comments { get; set; }
 
         public decimal Price { get; set; }
-
-        public object Id { get; set; }
-
+        
         public override string ToString()
         {
             var builder = new StringBuilder();

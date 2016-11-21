@@ -2,6 +2,9 @@
 using Dealership.Data.Common;
 using Dealership.Data.Contracts;
 using System.Text;
+using System;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace Dealership.Data.MongoDb.Models
 {
@@ -12,25 +15,17 @@ namespace Dealership.Data.MongoDb.Models
         private const string CommentIndentation = "    ";
         private const string AuthorHeader = "      User: ";
 
-        private readonly string content;
-
         public MongoComment(string content)
         {
-            this.content = content;
+            this.Content = content;
 
-            this.ValidateFields();
+            //this.ValidateFields();
         }
 
-        public string Content
-        {
-            get
-            {
-                return this.content;
-            }
-        }
+        public string Content { get; set; }
 
         public string Author { get; set; }
-
+        
         public override string ToString()
         {
             var builder = new StringBuilder();
@@ -45,8 +40,8 @@ namespace Dealership.Data.MongoDb.Models
 
         private void ValidateFields()
         {
-            Validator.ValidateNull(this.content, string.Format(Constants.PropertyCannotBeNull, ContentProperty));
-            Validator.ValidateIntRange(this.content.Length, Constants.MinCommentLength, Constants.MaxCommentLength, string.Format(Constants.StringMustBeBetweenMinAndMax, ContentProperty, Constants.MinCommentLength, Constants.MaxCommentLength));
+            Validator.ValidateNull(this.Content, string.Format(Constants.PropertyCannotBeNull, ContentProperty));
+            Validator.ValidateIntRange(this.Content.Length, Constants.MinCommentLength, Constants.MaxCommentLength, string.Format(Constants.StringMustBeBetweenMinAndMax, ContentProperty, Constants.MinCommentLength, Constants.MaxCommentLength));
         }
     }
 }

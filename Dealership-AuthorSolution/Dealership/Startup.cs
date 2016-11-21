@@ -19,17 +19,20 @@ namespace Dealership
 
             //var collection = db.GetCollection<User>("users");
 
-            //var user = new MongoUser("Pesho", "Peshev", "Peshev", "123456", "Normal");
-            ////collection.InsertOne(user);
+            var user = new MongoUser("Gosho", "Peshev", "Peshev", "123456", "Normal");
+            //collection.InsertOne(user);
 
             var repo = new MongoUserRepository();
-
+            repo.Add(user);
             //var all = repo.All();
 
-            var pesho = repo.FindByUsername("Pesho");
+            var pesho = repo.FindByUsername("Gosho");
             var car = new MongoCar("make", "model", 10000, "5");
             pesho.Vehicles.Add(car);
+            repo.Update(pesho);
 
+            var comment = new MongoComment("content");
+            car.Comments.Add(comment);
             repo.Update(pesho);
 
             //var ninject = new StandardKernel();
