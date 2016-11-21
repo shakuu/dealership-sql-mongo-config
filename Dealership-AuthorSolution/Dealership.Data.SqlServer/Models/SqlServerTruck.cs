@@ -11,6 +11,11 @@ namespace Dealership.Data.SqlServer.Models
 
         private readonly int weightCapacity;
 
+        public SqlServerTruck()
+        {
+
+        }
+
         public SqlServerTruck(string make, string model, decimal price, string details)
             : base(make, model, price, VehicleType.Truck)
         {

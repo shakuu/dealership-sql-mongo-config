@@ -128,6 +128,10 @@
       <Project>{4F3D4CAA-9CDF-4CC8-BD32-1CCAA11BC0B4}</Project>
       <Name>Dealership.Data.MongoDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dealership.Data.SqlServer\Dealership.Data.SqlServer.csproj">
+      <Project>{516CDE6D-973A-4EDF-A1C4-93A5AFE87F46}</Project>
+      <Name>Dealership.Data.SqlServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dealership.Data\Dealership.Data.csproj">
       <Project>{2C672116-990D-4FF5-8DF9-EAC6A32193F5}</Project>
       <Name>Dealership.Data</Name>

@@ -11,6 +11,11 @@ namespace Dealership.Data.SqlServer.Models
 
         private readonly string category;
 
+        public SqlServerMotorcycle()
+        {
+
+        }
+
         public SqlServerMotorcycle(string make, string model, decimal price, string details)
             : base(make, model, price, VehicleType.Motorcycle)
         {

@@ -13,6 +13,11 @@ namespace Dealership.Data.SqlServer.Models
         private const string CommentIndentation = "    ";
         private const string AuthorHeader = "      User: ";
 
+        public SqlServerComment()
+        {
+
+        }
+
         public SqlServerComment(string content)
         {
             this.Content = content;

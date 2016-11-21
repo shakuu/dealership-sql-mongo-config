@@ -9,6 +9,11 @@ namespace Dealership.Data.SqlServer.Models
     {
         private const string SeatsProperty = "Seats";
 
+        public SqlServerCar()
+        {
+
+        }
+
         public SqlServerCar(string make, string model, decimal price, string details)
             : base(make, model, price, VehicleType.Car)
         {

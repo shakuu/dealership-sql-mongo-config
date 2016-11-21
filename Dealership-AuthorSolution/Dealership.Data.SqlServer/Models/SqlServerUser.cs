@@ -19,6 +19,11 @@ namespace Dealership.Data.SqlServer.Models
         private const string NoVehiclesHeader = "--NO VEHICLES--";
         private const string UserHeader = "--USER {0}--";
 
+        public SqlServerUser()
+        {
+
+        }
+
         public SqlServerUser(string username, string firstName, string lastName, string password, string role)
         {
             this.Username = username;

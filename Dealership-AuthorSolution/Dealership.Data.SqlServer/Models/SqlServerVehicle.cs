@@ -19,6 +19,11 @@ namespace Dealership.Data.SqlServer.Models
         private const string CommentsHeader = "    --COMMENTS--";
         private const string NoCommentsHeader = "    --NO COMMENTS--";
 
+        public SqlServerVehicle()
+        {
+
+        }
+        
         public SqlServerVehicle(string make, string model, decimal price, VehicleType type)
         {
             this.Make = make;
